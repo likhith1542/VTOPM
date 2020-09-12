@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html class="js csstransforms3d csstransitions pointerevents">
+    <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>VTOP</title>
+        
+    <link href="{{ url_for('static', filename='home/images/logo_light.png') }}" rel="icon">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	
+	<!-- Included Google Fonts -->
+	<link href="{{ url_for('static', filename='home/css/css') }}" rel="stylesheet" type="text/css">
+	<!-- CSS Files comes here -->
+	<link href="{{ url_for('static', filename='home/css/grid12.css') }}" rel="stylesheet" media="screen">                    <!-- Grid System -->
+	<link href="{{ url_for('static', filename='home/css/james_typography.css') }}" rel="stylesheet" media="screen">         <!-- James Framework - TYPOGRAPHY -->
+	<link href="{{ url_for('static', filename='home/css/main.css') }}" rel="stylesheet" media="screen">                     <!-- Main CSS file -->
+	<link href="{{ url_for('static', filename='home/css/color_scheme_dark.css') }}" rel="stylesheet" media="screen">         <!-- Color scheme (dark/light)-->
+	<link href="{{ url_for('static', filename='home/css/color_palette_lime.css') }}" rel="stylesheet" media="screen">       <!-- Color palette -->
+	<link href="{{ url_for('static', filename='home/css/rapid-icons.css') }}" rel="stylesheet" media="screen">               <!-- James Framework - ICONS -->
+	<link href="{{ url_for('static', filename='home/css/jquery.maximage.min.css') }}" rel="stylesheet" media="screen">       <!-- MaxImage background image slideshow -->
+	<link href="{{ url_for('static', filename='home/css/responsivity.css') }}" rel="stylesheet" media="screen">             <!-- Responsive Fixes -->
+	
+	<!-- Modernizer and IE specyfic files -->  
+	<script src="{{ url_for('static', filename='home/js/modernizr.custom.js') }}"></script>	   
+    
+   
+  </head>
+  
+  <body class="mc-old-browser layout-switch" >
+
+	    
+	    <!-- Preloader Screen -->
+		<!-- <header class="preloader_header header-none">	 
+	        <div class="preloader_loader">
+	            <svg class="preloader_inner" width="60px" height="60px" viewBox="0 0 80 80">
+	                <path class="preloader_loader_circlebg" d="M40,10C57.351,10,71,23.649,71,40.5S57.351,71,40.5,71 S10,57.351,10,40.5S23.649,10,40.5,10z"></path>
+	                <path id="preloader_loader_circle" class="preloader_loader_circle" d="M40,10C57.351,10,71,23.649,71,40.5S57.351,71,40.5,71 S10,57.351,10,40.5S23.649,10,40.5,10z" style="stroke-dashoffset: 0; stroke-dasharray: 192.617;"></path>
+	            </svg>
+	        </div>
+	    </header> -->
+	    <!-- //Preloader Screen -->
+	
+		<!-- Fullscreen homepage -->
+		<section class="hero_fullscreen headline background_slider" style="height: 576px;"><!-- You can edit classes of this section to control the content that i displayed and backgrounds of this section, more info in documentation. -->
+			
+			
+			<!-- Logo and navigation -->
+		  	<div class="container top_bar">
+                
+		  		<div class="row">
+		  			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+		  			<img src="{{ url_for('static', filename='home/images/logo_light.png') }}" alt="logo" class="logo">
+		  			<nav class="navigation_desktop">
+		  				<ul>
+		  					<a class="btn btn-secondary" href="{{ url_for('index') }}">Login</a>
+		  				</ul>
+		  			</nav>
+		  			</div>
+		  		</div>
+			</div>
+			<!-- //Logo and navigation -->
+			
+           
+			
+			<!-- Main content -->
+		  	<div class="container align-center" id="main_content">
+                <!-- Slider Background -->
+			
+				<div class="content_container row">
+				
+				     
+				    <!-- Headline (put class="headline" in Homepage section if you want slogan to be shown)-->
+					<h2 class="slogan"><b>VITask</b> is coming<br>really soon!</h2>
+					
+					
+					
+					
+					
+					<h6>Yeah, still a work in progress but... <br class="hidden-xs">We are working hard to finish it as soon as possible!</h6>
+				
+			
+			
+				</div>		
+			</div>  
+		
+			
+			
+			<!-- //Slider Background -->
+			
+			
+			
+			<div id="maximage_slider" class="mc-cycle" style="width: 1366px; height: 576px;">
+				
+				
+				
+				
+			<div title="Welcome to VITask" style="background-image: url({{ url_for('static', filename='home/images/vitask.jpg') }}); background-color: rgb(0, 0, 0); position: inherit;  display: block; z-index: 5; opacity: 1; width: 100%; height: 100%;" data-href="">
+                
+            </div>
+                
+            </div>
+			
+		</section>
+        <!-- //Homepage -->
+
+	<!-- JavaScript plugins comes here -->	
+    <script src="{{ url_for('static', filename='home/js/jquery-2.1.3.min.js') }}"></script>
+    <!-- jQuery -->
+    <script src="{{ url_for('static', filename='home/js/jquery.easing.min.js') }}"></script>
+    <!-- jQuery easing -->    
+    <script src="{{ url_for('static', filename='home/js/jquery.scrollTo.js') }}"></script> 
+    <!-- Scroll to -->
+    <script src="{{ url_for('static', filename='home/js/jquery.cycle.all.min.js') }}"></script>    
+    <!-- jQuery cycle -->
+    <script src="{{ url_for('static', filename='home/js/jquery.form.js') }}"></script>    		  
+    <!-- jQuery form -->
+    <script src="{{ url_for('static', filename='home/js/jquery.maximage.min.js') }}"></script>     
+    <!-- MaxImage background image slideshow -->
+    <script src="{{ url_for('static', filename='home/js/materialize.js') }}"></script>     		  
+    <!-- Materialize -->
+    <script src="{{ url_for('static', filename='home/js/classie.js') }}"></script>                 
+    <!-- Class helper function -->
+	<script src="{{ url_for('static', filename='home/js/pathLoader.js') }}"></script>              
+    <!-- Preloader Loading Animation -->
+	<script src="{{ url_for('static', filename='home/js/preloader.js') }}"></script>               
+    <!-- Preloader -->
+    <script src="{{ url_for('static', filename='home/js/count_down.js') }}"></script>              
+    <!-- Count Down Timer -->
+    <script src="{{ url_for('static', filename='home/js/happy.js') }}"></script>                   
+    <!-- Newsletter form validation -->
+    <script src="{{ url_for('static', filename='home/js/happy.methods.js') }}"></script>           
+    <!-- Newsletter form validation -->
+    <script src="{{ url_for('static', filename='home/js/retina.js') }}"></script>                  
+    <!-- Retina.js - support for HiDPI Displays -->
+    <script src="{{ url_for('static', filename='home/js/main.js') }}"></script>                    
+    <!-- Main Js file -->
+    
+    
+    <!-- Show message after newsletter form submit -->
+
+	
+    <!-- Style Switcher --> 
+    <!-- Switcher Only -->
+  
+    
+    
+    <!-- Demo Switcher JS -->
+    <script type="text/javascript" src="{{ url_for('static', filename='home/js/fswit.js') }}"></script>	
+    </body>
+</html>

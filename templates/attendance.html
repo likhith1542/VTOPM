@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>
+    VTOPM | Timetable
+  </title>
+  <!-- Favicon -->
+  <link href="{{ url_for('static', filename='assets/img/brand/favicon.png') }}" rel="icon" type="image/png">
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+  <!-- Icons -->
+  <link href="{{ url_for('static', filename='assets/js/plugins/nucleo/css/nucleo.css') }}" rel="stylesheet" />
+  <link href="{{ url_for('static', filename='assets/js/plugins/@fortawesome/fontawesome-free/css/all.min.css') }}"
+    rel="stylesheet" />
+  <!-- CSS Files -->
+  <link href="{{ url_for('static', filename='assets/css/argon-dashboard.css') }}" rel="stylesheet" />
+  <!-- jQuery CDN -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <style>
+    /*Scrollbar */
+    /* width */
+    ::-webkit-scrollbar {
+      width: 1em;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+      box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+      background-color: #32325d;
+      outline: 1px solid slategrey;
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+      background: #b30000;
+    }
+
+    .grid-container {
+      display: grid;
+      grid-template-columns: auto auto auto;
+      grid-template-rows: auto auto;
+      grid-gap: 10px;
+      padding: 10px;
+    }
+
+    .grid-container>div {
+      text-align: center;
+      padding: 20px 0;
+      font-size: 30px;
+      width: fit-content;
+    }
+
+    .progress {
+      width: 150px;
+      height: 150px;
+      line-height: 150px;
+      background: none;
+      margin: 0 auto;
+      box-shadow: none;
+      position: relative;
+    }
+
+    .progress:after {
+      content: "";
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border: 12px solid #fff;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .progress>span {
+      width: 50%;
+      height: 100%;
+      overflow: hidden;
+      position: absolute;
+      top: 0;
+      z-index: 1;
+    }
+
+    .progress .progress-left {
+      left: 0;
+    }
+
+    .progress .progress-bar {
+      width: 100%;
+      height: 100%;
+      background: none;
+      border-width: 12px;
+      border-style: solid;
+      position: absolute;
+      top: 0;
+    }
+
+    .progress .progress-left .progress-bar {
+      left: 100%;
+      border-top-right-radius: 80px;
+      border-bottom-right-radius: 80px;
+      border-left: 0;
+      -webkit-transform-origin: center left;
+      transform-origin: center left;
+    }
+
+    .progress .progress-right {
+      right: 0;
+    }
+
+    .progress .progress-right .progress-bar {
+      left: -100%;
+      border-top-left-radius: 80px;
+      border-bottom-left-radius: 80px;
+      border-right: 0;
+      -webkit-transform-origin: center right;
+      transform-origin: center right;
+      animation: loading-1 1.8s linear forwards;
+    }
+
+    .progress .progress-value {
+      width: 90%;
+      height: 90%;
+      border-radius: 50%;
+      background: #44484b;
+      font-size: 24px;
+      color: #fff;
+      line-height: 135px;
+      text-align: center;
+      position: absolute;
+      top: 5%;
+      left: 5%;
+    }
+
+    .progress.blue .progress-bar {
+      border-color: #32be8f;
+    }
+
+    .progress.blue .progress-left .progress-bar {
+      animation: loading-2 1.5s linear forwards 1.8s;
+    }
+
+    .progress.yellow .progress-bar {
+      border-color: #fdba04;
+    }
+
+    .progress.yellow .progress-left .progress-bar {
+      animation: loading-3 1s linear forwards 1.8s;
+    }
+
+    .progress.pink .progress-bar {
+      border-color: #ed687c;
+    }
+
+    .progress.pink .progress-left .progress-bar {
+      animation: loading-4 0.4s linear forwards 1.8s;
+    }
+
+    .progress.green .progress-bar {
+      border-color: #1abc9c;
+    }
+
+    .progress.green .progress-left .progress-bar {
+      animation: loading-5 1.2s linear forwards 1.8s;
+    }
+
+    @keyframes loading-1 {
+      0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+      }
+
+      100% {
+        -webkit-transform: rotate(180deg);
+        transform: rotate(180deg);
+      }
+    }
+
+    @keyframes loading-2 {
+      0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+      }
+
+      100% {
+        -webkit-transform: rotate(144deg);
+        transform: rotate(144deg);
+      }
+    }
+
+    @keyframes loading-3 {
+      0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+      }
+
+      100% {
+        -webkit-transform: rotate(90deg);
+        transform: rotate(90deg);
+      }
+    }
+
+    @keyframes loading-4 {
+      0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+      }
+
+      100% {
+        -webkit-transform: rotate(36deg);
+        transform: rotate(36deg);
+      }
+    }
+
+    @keyframes loading-5 {
+      0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+      }
+
+      100% {
+        -webkit-transform: rotate(126deg);
+        transform: rotate(126deg);
+      }
+    }
+
+    @media only screen and (max-width: 990px) {
+      .progress {
+        margin-bottom: 20px;
+      }
+    }
+
+
+    /*Scrollbar */
+  </style>
+</head>
+
+<body class="">
+  <nav class="navbar navbar-vertical fixed-left navbar-expand-md navbar-light bg-white" id="sidenav-main">
+    <div class="container-fluid">
+      <!-- Toggler -->
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#sidenav-collapse-main"
+        aria-controls="sidenav-main" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <!-- Brand -->
+      <a class="navbar-brand pt-0" href="../index.html">
+        <img src="{{ url_for('static', filename='assets/img/brand/blue.png') }}" class="navbar-brand-img" alt="...">
+      </a>
+      <!-- User -->
+      <ul class="nav align-items-center d-md-none">
+        <li class="nav-item dropdown">
+
+          <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right"
+            aria-labelledby="navbar-default_dropdown_1">
+            <a class="dropdown-item" href="{{ url_for('profile') }}">Dashboard</a>
+            <a class="dropdown-item" href="#">Settings</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="{{ url_for('logout') }}">Logout</a>
+          </div>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <div class="media align-items-center">
+              <span class="avatar avatar-sm rounded-circle">
+                <img alt="Image placeholder" src="{{ url_for('static', filename='assets/img/theme/maple.png') }}">
+              </span>
+            </div>
+          </a>
+          <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">
+            <div class=" dropdown-header noti-title">
+              <h6 class="text-overflow m-0">Welcome!</h6>
+            </div>
+            <a href="{{ url_for('profile') }}" class="dropdown-item">
+              <i class="ni ni-single-02"></i>
+              <span>Dashboard</span>
+            </a>
+            <a href="#" class="dropdown-item">
+              <i class="ni ni-settings-gear-65"></i>
+              <span>Settings</span>
+            </a>
+            <div class="dropdown-divider"></div>
+            <a href="{{ url_for('logout') }}" class="dropdown-item">
+              <i class="ni ni-user-run"></i>
+              <span>Logout</span>
+            </a>
+          </div>
+        </li>
+      </ul>
+      <!-- Collapse -->
+      <div class="collapse navbar-collapse" id="sidenav-collapse-main">
+        <!-- Collapse header -->
+        <div class="navbar-collapse-header d-md-none">
+          <div class="row">
+            <div class="col-6 collapse-brand">
+              <a href="{{ url_for('profile') }}">
+                <img src="{{ url_for('static', filename='assets/img/brand/blue.png') }}">
+              </a>
+            </div>
+            <div class="col-6 collapse-close">
+              <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#sidenav-collapse-main"
+                aria-controls="sidenav-main" aria-expanded="false" aria-label="Toggle sidenav">
+                <span></span>
+                <span></span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Navigation -->
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class=" nav-link" href="{{ url_for('profile') }}"> <i class="ni ni-tv-2 text-primary"></i> Dashboard
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="{{ url_for('classes') }}">
+              <i class="ni ni-time-alarm text-orange"></i> Attendance
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="{{ url_for('grades') }}">
+              <i class="ni ni-paper-diploma text-pink"></i> CGPA
+            </a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link active" href="{{ url_for('timetable') }}">
+              <i class="ni ni-calendar-grid-58 text-red"></i> Timetable
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="main-content">
+    <!-- Navbar -->
+    <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
+      <div class="container-fluid">
+        <!-- Brand -->
+        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block"
+          href="{{ url_for('profile') }}">Dashboard</a>
+
+        <!-- User -->
+        <ul class="navbar-nav align-items-center d-none d-md-flex">
+          <li class="nav-item dropdown">
+            <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="false">
+              <div class="media align-items-center">
+                <span class="avatar avatar-sm rounded-circle">
+                  <img alt="Image placeholder" src="{{ url_for('static', filename='assets/img/theme/maple.png') }}">
+                </span>
+                <div class="media-body ml-2 d-none d-lg-block">
+                  <span class="mb-0 text-sm  font-weight-bold">{{ name }}</span>
+                </div>
+              </div>
+            </a>
+            <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">
+              <div class=" dropdown-header noti-title">
+                <h6 class="text-overflow m-0">Welcome!</h6>
+              </div>
+              <a href="{{ url_for('profile') }}" class="dropdown-item">
+                <i class="ni ni-single-02"></i>
+                <span>Dashboard</span>
+              </a>
+              <a href="#" class="dropdown-item">
+                <i class="ni ni-settings-gear-65"></i>
+                <span>Settings</span>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a href="{{ url_for('logout') }}" class="dropdown-item">
+                <i class="ni ni-user-run"></i>
+                <span>Logout</span>
+              </a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <!-- End Navbar -->
+    <!-- Header -->
+    <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
+      <div class="container-fluid">
+        <div class="header-body">
+          {% if rn%3==0 %}
+          {% for i in range(rn//3) %}
+          <!-- Card stats -->
+          <div class="grid-container" style="grid-auto-flow: row;">
+            <div class="rowatt">
+              <div class="col-sm-6">
+                <div class="card" style="width: 18rem; border-radius: 25px">
+                  <div style="background-color: cadetblue;" class="card-body">
+                    <h5 class="card-title">{{at['Course Title'][i]}}</h5>
+                    <p class="card-text"><strong>Type:</strong>{{at['Course Type'][i]}}</p>
+                    <p class="card-text"><strong>Faculty:</strong>{{at['Faculty Name'][i]}}</p>
+                    <div class="progress blue">
+                      <span class="progress-left">
+                        <span class="progress-bar"></span>
+                      </span>
+                      <span class="progress-right">
+                        <span class="progress-bar"></span>
+                      </span>
+                      <div class="progress-value">{{at['Percentage'][i]}}%</div>
+                      <div>{{at['Attendended Class'][i]}} out of {{at['Total Classes'][i]}}</div>
+                    </div>
+                    <p class="card-text">{{at['Attendended Class'][i]}} out of {{at['Total Classes'][i]}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="rowatt">
+              <div class="col-sm-6">
+                <div class="card" style="width: 18rem; border-radius: 25px">
+                  <div style="background-color: cadetblue;" class="card-body">
+                    <h5 class="card-title">{{at['Course Title'][i+3]}}</h5>
+                    <p class="card-text"><strong>Type:</strong>{{at['Course Type'][i+3]}}</p>
+                    <p class="card-text"><strong>Faculty:</strong>{{at['Faculty Name'][i+3]}}</p>
+                    <div class="progress blue">
+                      <span class="progress-left">
+                        <span class="progress-bar"></span>
+                      </span>
+                      <span class="progress-right">
+                        <span class="progress-bar"></span>
+                      </span>
+                      <div class="progress-value">{{at['Percentage'][i+3]}}%</div>
+                      <div>{{at['Attendended Class'][i+3]}} out of {{at['Total Classes'][i+3]}}</div>
+                    </div>
+                    <p class="card-text">{{at['Attendended Class'][i+3]}} out of {{at['Total Classes'][i+3]}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="rowatt">
+              <div class="col-sm-6">
+                <div class="card" style="width: 18rem; border-radius: 25px">
+                  <div style="background-color: cadetblue;" class="card-body">
+                    <h5 class="card-title">{{at['Course Title'][i+6]}}</h5>
+                    <p class="card-text"><strong>Type:</strong>{{at['Course Type'][i+6]}}</p>
+                    <p class="card-text"><strong>Faculty:</strong>{{at['Faculty Name'][i+6]}}</p>
+                    <div class="progress blue">
+                      <span class="progress-left">
+                        <span class="progress-bar"></span>
+                      </span>
+                      <span class="progress-right">
+                        <span class="progress-bar"></span>
+                      </span>
+                      <div class="progress-value">{{at['Percentage'][i+6]}}%</div>
+                      <div>{{at['Attendended Class'][i+6]}} out of {{at['Total Classes'][i+6]}}</div>
+                    </div>
+                    <p class="card-text">{{at['Attendended Class'][i+6]}} out of {{at['Total Classes'][i+6]}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+          {% else %}
+          <div class="grid-container" style="grid-auto-flow: row;">
+            {% for i in range(rn-(rn%3)) %}
+            <div class="rowatt">
+              <div class="col-sm-6">
+                <div class="card" style="width: 18rem; border-radius: 25px; ">
+                  <div style="background-color: cadetblue;" class="card-body">
+                    <h5 style="color: white;" class="card-title">{{at['Course Title'][i]}}</h5>
+                    <p class="card-text"><strong>Type:</strong>{{at['Course Type'][i]}}</p>
+                    <p class="card-text"><strong>Faculty:</strong>{{at['Faculty Name'][i]}}</p>
+                    <div class="progress blue">
+                      <span class="progress-left">
+                        <span class="progress-bar"></span>
+                      </span>
+                      <span class="progress-right">
+                        <span class="progress-bar"></span>
+                      </span>
+                      <div class="progress-value">{{at['Percentage'][i]}}%</div>
+                      <div>{{at['Attendended Class'][i]}} out of {{at['Total Classes'][i]}}</div>
+                    </div>
+                    <p class="card-text">{{at['Attendended Class'][i]}} out of {{at['Total Classes'][i]}}</p>
+                    <script>
+                      var a=bunk(at['Attendended Class'][i],at['Total Classes'][i]);
+                      document.write(a);
+                    </script>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+            {% for i in range(rn%3) %}
+            <div class="rowatt">
+              <div class="col-sm-6">
+                <div class="card" style="width: 18rem;border-radius: 25px;">
+                  <div style="background-color: cadetblue;" class="card-body">
+                    <h5 style="color: white;" class="card-title">{{at['Course Title'][rn-(rn//3)+(rn%3)+i]}}</h5>
+                    <p class="card-text">
+                      <strong>Type:</strong>{{at['Course Type'][rn-(rn//3)+(rn%3)+i]}}</p>
+                    <p class="card-text">
+                      <strong>Faculty:</strong>{{at['Faculty Name'][rn-(rn//3)+(rn%3)+i]}}</p>
+                    <div class="progress blue">
+                      <span class="progress-left">
+                        <span class="progress-bar"></span>
+                      </span>
+                      <span class="progress-right">
+                        <span class="progress-bar"></span>
+                      </span>
+                      <div class="progress-value">{{at['Percentage'][rn-(rn//3)+(rn%3)+i]}}%</div>
+                    </div>
+                    <p class="card-text">{{at['Attendended Class'][rn-(rn//3)+(rn%3)+i]}} out of
+                      {{at['Total Classes'][rn-(rn//3)+(rn%3)+i]}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+          {% endif %}
+
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid mt--7">
+
+
+    </div>
+  </div>
+  <!-- Loader -->
+  <!--   Core   -->
+  <script src="{{ url_for('static', filename='assets/js/plugins/jquery/dist/jquery.min.js') }}"></script>
+  <script
+    src="{{ url_for('static', filename='assets/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
+  <!--   Optional JS   -->
+  <!--   Argon JS   -->
+  <script src="{{ url_for('static', filename='assets/js/argon-dashboard.min.js') }}"></script>
+  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+  <script>
+    function bunk() {
+      var i;
+      i=(arguments[0]-(arguments[1]*0.8))/0.8
+      print(i)
+      return i;
+    }
+
+  </script>
+
+</body>
+
+</html>
