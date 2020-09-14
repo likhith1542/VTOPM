@@ -2,8 +2,11 @@
 Updated Vtop
 
 GPA,Exam Schedule,Academic calendar and many more....... will come soon
-Found any bugs, report them Here
+
+Found any bugs, report them https://t.me/vtopm
+
 This website is not possible without VITASk team.
+
 ____.___Thank you VITASK team____.___
 
 
